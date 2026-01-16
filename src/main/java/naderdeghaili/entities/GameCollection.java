@@ -74,10 +74,11 @@ public class GameCollection {
         double averagePrice = games.values()
                 .stream()
                 .collect(Collectors.averagingDouble(Game::getPrice));
+
         System.out.println("i videogiochi sono: " + videoGames);
         System.out.println("i giochi da tavolo sono: " + tableGames);
         System.out.println("il gioco con il prezzo più alto è: " + highestPrice.map(Game::getTitle).orElse("Non ci sono giochi nella collezione"));
-        System.out.println("il prezzo medio dei giochi è: " + averagePrice);
+        System.out.println("il prezzo medio dei giochi è: " + averagePrice + "€");
     }
 }
 

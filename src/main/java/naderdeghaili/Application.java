@@ -42,15 +42,76 @@ public class Application {
                     MENU
                     1 - Aggiungi gioco
                     2 - Ricerca per ID
-                    3 - Ricerca per prezzo massimo
+                    3 - Ricerca giochi per prezzo massimo
                     4 - Ricerca giochi da tavolo per numero giocatori
                     5 - Rimuovi gioco per ID
                     6 - Aggiorna gioco per ID
                     7 - Ottieni le statistiche della collezione
                     """);
+            System.out.println("Scegli un'opzione");
+
+            int choice;
+
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+                if (choice < 1 || choice > 7) {
+                    System.out.println("Scegli un'opzione valida ");
+                    continue;
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("Scegli un'opzione valida ");
+                continue;
+            }
+            try {
+                switch (choice) {
+
+                    case 1 -> {
+                        gameCollection.addGame(g5);
+                        System.out.println("Gioco aggiunto: " + g5.getTitle());
+                    }
+                    case 2 -> {
+                        System.out.println("Inserisci ID da cercare:");
+                        int id = Integer.parseInt(sc.nextLine());
+                        Game game = gameCollection.getById(id);
+                        System.out.println("Il gioco è:" + game.getTitle());
+                    }
+                    case 3 -> {
+                        System.out.println("Inserisci un prezzo massimo");
+                        double price = Double.parseDouble(sc.nextLine());
+                        gameCollection.getGamesWithPriceLowerThan(price)
+                                .forEach(game -> System.out.println(game.getTitle() + " " + game.getPrice() + "€"));
+                    }
+                    case 4 -> {
+                        System.out.println("Inserisci un numero minimo di giocatori");
+                        int players = Integer.parseInt(sc.nextLine());
+                        gameCollection.getGamesPerPlayers(players)
+                                .forEach(game -> System.out.println(game.getTitle()));
+                    }
+                    case 5 -> {
+                        System.out.println("Inserisci l'ID del gioco da rimuovere");
+                        int id = Integer.parseInt(sc.nextLine());
+                        gameCollection.removeById(id);
+                        System.out.println("Rimosso il gioco: ");
+                    }
+                    case 6 -> {
+                        System.out.println("inserisci ID da aggiornare");
+                        int id = Integer.parseInt(sc.nextLine());
+                        gameCollection.updateById(id, g10);
+                        System.out.println("Nuovo gioco inserito: " + g10.getTitle());
+                    }
+                    case 7 -> {
+                        gameCollection.printGameStatistics();
+                    }
+                    default -> System.out.println("Scelta non valida");
+
+                }
+            } catch (RuntimeException e) {
+                System.out.println("Errore: " + e.getMessage());
+
+            }
+
 
         }
-
 
     }
 
