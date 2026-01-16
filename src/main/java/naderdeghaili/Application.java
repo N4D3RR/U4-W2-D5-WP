@@ -90,8 +90,7 @@ public class Application {
                         if (results.isEmpty()) {
                             System.out.println("Nessun gioco corrisponde alla ricerca");
                         } else {
-                            gameCollection.getGamesPerPlayers(players)
-                                    .forEach(game -> System.out.println(game.getTitle()));
+                            results.forEach(game -> System.out.println(game.getTitle()));
                         }
                     }
                     case 5 -> {
