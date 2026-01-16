@@ -2,6 +2,7 @@ package naderdeghaili;
 
 import naderdeghaili.entities.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -73,7 +74,7 @@ public class Application {
                         System.out.println("Inserisci ID da cercare:");
                         int id = Integer.parseInt(sc.nextLine());
                         Game game = gameCollection.getById(id);
-                        System.out.println("Il gioco è:" + game.getTitle());
+                        System.out.println("Il gioco è: " + game.getTitle());
                     }
                     case 3 -> {
                         System.out.println("Inserisci un prezzo massimo");
@@ -84,14 +85,21 @@ public class Application {
                     case 4 -> {
                         System.out.println("Inserisci un numero minimo di giocatori");
                         int players = Integer.parseInt(sc.nextLine());
-                        gameCollection.getGamesPerPlayers(players)
-                                .forEach(game -> System.out.println(game.getTitle()));
+
+                        List<Game> results = gameCollection.getGamesPerPlayers(players);
+                        if (results.isEmpty()) {
+                            System.out.println("Nessun gioco corrisponde alla ricerca");
+                        } else {
+                            gameCollection.getGamesPerPlayers(players)
+                                    .forEach(game -> System.out.println(game.getTitle()));
+                        }
                     }
                     case 5 -> {
                         System.out.println("Inserisci l'ID del gioco da rimuovere");
                         int id = Integer.parseInt(sc.nextLine());
+                        Game game = gameCollection.getById(id);
                         gameCollection.removeById(id);
-                        System.out.println("Rimosso il gioco: ");
+                        System.out.println("Rimosso il gioco: " + game.getTitle());
                     }
                     case 6 -> {
                         System.out.println("inserisci ID da aggiornare");
