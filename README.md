@@ -1,0 +1,1 @@
+(class chart.drawio.png)
